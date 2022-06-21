@@ -11,6 +11,10 @@ public class VampireAdventureApp {
     private static Scanner scanner = new Scanner(System.in);
     private String paul = "Hallo";
 
+    //Hi
+
+    private int mo = 10;
+
     /**
      * @param args mainklasse
      */
