@@ -7,20 +7,21 @@ import java.util.Scanner;
  *
  */
 public class VampireAdventureApp {
-
+    // Hallo
     private static Scanner scanner = new Scanner(System.in);
+    private String paul = "Hallo";
 
     /**
      * @param args mainklasse
      */
     public static void main(String[] args) {
 
-        //while (true) {
-            showMenu();
-            int choice = readUserInput();
-            handle(choice);
-            System.out.println("====================");
-        //}
+        // while (true) {
+        showMenu();
+        int choice = readUserInput();
+        handle(choice);
+        System.out.println("====================");
+        // }
     }
 
     /**
@@ -30,10 +31,9 @@ public class VampireAdventureApp {
     private static int readUserInput() {
         System.out.print("\nPlease choose a number between 1 and 6:\t");
         int choiceInternal = 0;
-        try{
-         choiceInternal = scanner.nextInt();
-        }
-        catch(Exception e){
+        try {
+            choiceInternal = scanner.nextInt();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
