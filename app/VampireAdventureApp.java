@@ -10,6 +10,10 @@ public class VampireAdventureApp {
 
     private static Scanner scanner = new Scanner(System.in);
 
+    //Hi
+
+    private int mo = 10;
+
     /**
      * @param args mainklasse
      */
