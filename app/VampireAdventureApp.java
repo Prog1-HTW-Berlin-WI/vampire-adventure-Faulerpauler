@@ -10,10 +10,6 @@ public class VampireAdventureApp {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    //Hi
-
-    private int mo = 10;
-
     /**
      * @param args mainklasse
      */
@@ -45,7 +41,7 @@ public class VampireAdventureApp {
 
     /**
      * 
-     * @param choice
+     * @param choice mainmenu
      */
     private static void handle(int choice) {
         switch (choice) {
@@ -78,6 +74,26 @@ public class VampireAdventureApp {
 
     /**
      * 
+     * @param choice createVampire
+     */
+    private static void createVampireChoice(int choice) {
+        switch (choice) {
+            case 1:
+                System.out.println("Das funktioniert leider noch nicht");
+                createVampire();
+                break;
+            case 2:
+                System.out.println("Das funktioniert leider noch nicht");
+                createVampire();
+                break;
+            case 3:
+                showMenu();
+                break;
+        }
+    }
+
+    /**
+     * 
      */
     private static void showMenu() {
 
@@ -92,8 +108,16 @@ public class VampireAdventureApp {
     }
 
     private static void createVampire() {
-        System.out.println(
-                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier sollst Du einen Vampir anlegen.\n");
+
+        String createVampireMenu[] = { "", "(1)\t Creator Vampir erstellen", "(2)\t Vampire erstellen",
+                "(3)\t Zurück zum Hauptmenü" };
+
+        for (int i = 1; i < createVampireMenu.length; i++) {
+            System.out.println(createVampireMenu[i]);
+        }
+        int choice = readUserInput();
+        createVampireChoice(choice);
+
     }
 
     private static void showSelectedVampire() {
