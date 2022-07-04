@@ -1,65 +1,64 @@
 package model;
+
 import java.util.Random;
 import java.util.UUID;
 
 public class Vampire {
     private String id = UUID.randomUUID().toString();
-    private String name;
-    private int grandness; 
+    public String name; // auf public damit Konstruktor von CreatorVampire darauf zugreifen kann
+    private int grandness;
     private int hunger = 5;
     private Vampire creator = null;
     private boolean isDrinkingBlood;
     private boolean inFight;
     private boolean canControlInstincts; // nach 10 Nächten true
     private int energy = 10; // geringer als 10 -> finale Auslöschung
-    private boolean finallyDead; //unwiederbringlich tot  
+    private boolean finallyDead; // unwiederbringlich tot
     Random random = new Random();
-    
 
-    public Vampire(String name, Vampire creator ){
+    public Vampire(String name) {
         this.name = name;
-        this.creator = creator; 
 
     }
-// Die Zufallsvariable muss in jede Methode gleich übernommen werden -  bspw. 
-    public void attackHuman(Human human){
-        int zufallsergebnis = random.nextInt(10)+1;
-        if(zufallsergebnis <= 6){ 
+
+    // Die Zufallsvariable muss in jede Methode gleich übernommen werden - bspw.
+    public void attackHuman(Human human) {
+        int zufallsergebnis = random.nextInt(10) + 1;
+        if (zufallsergebnis <= 6) {
             drinkBlood();
             // User Input -> "Möchtest du Blut saugen?" -> "Ja" oder "Nein"
-        
 
         }
-        if(zufallsergebnis > 6){
-
-        }
-    }
-
-
-    // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht 
-    // Ich frage mich, ob die Anzahl Blut in Liter gezielt aufgesaugt werden kann, oder ob es zufällig ist, wie viel Liter der Vampur trinkt.
-    public boolean drinkBlood(){
-        int zufallsergebnis = random.nextInt(10)+1;
-        if(zufallsergebnis <= 6){
+        if (zufallsergebnis > 6) {
 
         }
     }
 
-    // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des Schadens reduziert werden
-    public void takeDamage(Vampire Paul){
+    // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
+    // Ich frage mich, ob die Anzahl Blut in Liter gezielt aufgesaugt werden kann,
+    // oder ob es zufällig ist, wie viel Liter der Vampur trinkt.
+    public boolean drinkBlood() {
+        int zufallsergebnis = random.nextInt(10) + 1;
+        if (zufallsergebnis <= 6) {
+
+        }
+    }
+
+    // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des
+    // Schadens reduziert werden
+    public void takeDamage(Vampire Paul) {
         int damage = // hier muss die;
-        energy = energy - damage;
-        if(energy <= 0){
+                energy = energy - damage;
+        if (energy <= 0) {
             finallyDead = true;
-            System.out.println("OH NEIN! DEIN VAMPIR IST GESTORBEN");
-        }
-        else{
+            System.out.println("OH NEIN! DEIN VAMPIR IST GESTORBEN");// lol
+        } else {
             System.out.println("Dein Vampir hat noch" + energy + "Lass dich nicht noch einmal treffen!");
             // Setter
         }
     }
 
-    // Getter und Setter 
+    // Getter und Setter
     public String getId() {
         return id;
     }
@@ -146,5 +145,5 @@ public class Vampire {
 
     public void setRandom(Random random) {
         this.random = random;
-    }   
+    }
 }
