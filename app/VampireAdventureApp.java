@@ -3,33 +3,37 @@ package app;
 import java.util.Random;
 import java.util.Scanner;
 
-/**
- * @author vemaj
- *
- */
-public class VampireAdventureApp {
+import model.CreatorVampire;
+import model.Vampire;
 
+public class VampireAdventureApp {
+    // Scanner
     private static Scanner scanner = new Scanner(System.in);
 
     /**
      * @param args mainklasse
      */
     public static void main(String[] args) {
-
-        // while (true) {
         showMenu();
-        int choice = readUserInput();
+        int choice = intEingabe();
         mainMenuChoise(choice);
-        System.out.println("====================");
-        // }
+        /*
+         * while (true) {
+         * showMenu();
+         * int choice = readUserInput();
+         * mainMenuChoise(choice);
+         * System.out.println("====================");
+         * }
+         */
     }
 
     /**
+     * Read User Input
      * 
      * @return
      */
-    private static int readUserInput() {
-        System.out.print("\nPlease choose one of the preceding options:");
+    private static int intEingabe() {
+        System.out.print("\nPlease choose one of the options:");
         int choiceInternal = 0;
         try {
             choiceInternal = scanner.nextInt();
@@ -40,14 +44,26 @@ public class VampireAdventureApp {
         return choiceInternal;
     }
 
+    private static String stringEingabe() {
+        String choiceInternal = "";
+        try {
+            choiceInternal += scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return choiceInternal;
+    }
+
     /**
+     * 
      * 
      * @param choice mainmenu
      */
     private static void mainMenuChoise(int choice) {
         switch (choice) {
             case 1:
-                createVampire();
+                createVampireMenu();
                 break;
             case 2:
                 showSelectedVampire();
@@ -74,7 +90,7 @@ public class VampireAdventureApp {
     }
 
     /**
-     * 
+     * Main Menu
      */
     private static void showMenu() {
 
@@ -88,7 +104,7 @@ public class VampireAdventureApp {
             System.out.println(menuItems[i]);
         }
 
-        int choice = readUserInput();
+        int choice = intEingabe();
         mainMenuChoise(choice);
 
     }
@@ -97,7 +113,7 @@ public class VampireAdventureApp {
      * createVampire Menu
      * 
      */
-    private static void createVampire() {
+    private static void createVampireMenu() {
 
         String createVampireMenu[] = { "", "(1)\t Creator Vampir erstellen", "(2)\t Vampire erstellen",
                 "(3)\t Zurück zum Hauptmenü" };
@@ -107,7 +123,7 @@ public class VampireAdventureApp {
         for (int i = 1; i < createVampireMenu.length; i++) {
             System.out.println(createVampireMenu[i]);
         }
-        int choice = readUserInput();
+        int choice = intEingabe();
         createVampireChoice(choice);
 
     }
@@ -120,11 +136,9 @@ public class VampireAdventureApp {
     private static void createVampireChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("\nDas funktioniert leider noch nicht");
-                createVampire();
+                createCreatorVampire();
                 break;
             case 2:
-                System.out.println("\nDas funktioniert leider noch nicht");
                 createVampire();
                 break;
             case 3:
@@ -132,10 +146,36 @@ public class VampireAdventureApp {
                 break;
             default: {
                 System.out.println("Invalid input. Please choose a correct number between 1 and 3");
-                createVampire();
+                createVampireMenu();
             }
                 break;
         }
+    }
+
+    // Create Creator Vampire
+    private static void createCreatorVampire() {
+        System.out.println("Wie soll dein Creator Vampir heißen?");
+        String creatorVampireName;
+        creatorVampireName = scanner.nextLine();
+        System.out.println(creatorVampireName + "? Ein super Name!");
+
+        Vampire newCreatorVampire = new CreatorVampire(creatorVampireName);
+        System.out.println("Dein Creator Vampire wurde erstellt!");
+        createVampireMenu();
+
+    }
+
+    // Create Vampire
+    private static void createVampire() {
+        System.out.println("Wie soll dein Vampir heißen?");
+        String vampireName;
+        vampireName = stringEingabe();
+        System.out.println(vampireName + "? Ein super Name!");
+
+        Vampire newVampire = new Vampire(vampireName);
+        System.out.println("Dein Vampire wurde erstellt!");
+        createVampireMenu();
+
     }
 
     private static void showSelectedVampire() {
@@ -159,7 +199,7 @@ public class VampireAdventureApp {
         for (int i = 1; i < listAllVampiresMenu.length; i++) {
             System.out.println(listAllVampiresMenu[i]);
         }
-        int choice = readUserInput();
+        int choice = intEingabe();
         listAllVampiresChoice(choice);
 
     }
@@ -172,15 +212,15 @@ public class VampireAdventureApp {
     private static void listAllVampiresChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("\nDas funktioniert leider noch nicht");
+                System.out.println("\tUnfortunately this doesn't work yet.");
                 listAllVampires();
                 break;
             case 2:
-                System.out.println("\nDas funktioniert leider noch nicht");
+                System.out.println("\tUnfortunately this doesn't work yet.");
                 listAllVampires();
                 break;
             case 3:
-                System.out.println("\nDas funktioniert leider noch nicht");
+                System.out.println("\tUnfortunately this doesn't work yet.");
                 listAllVampires();
                 break;
             case 4:
