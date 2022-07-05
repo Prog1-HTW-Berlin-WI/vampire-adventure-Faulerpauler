@@ -18,11 +18,15 @@ public class Vampire {
 
     public Vampire(String name, Vampire creator) {
         this.name = name;
+<<<<<<< HEAD
         this.creator = creator;
     }
 
     public Vampire() {
 
+=======
+// Creator Vampire hinzufügen
+>>>>>>> 35e4b7737baea43eb0c1b36133e1eb1ec840bcc8
     }
 
     // Die Zufallsvariable muss in jede Methode gleich übernommen werden - bspw.
@@ -31,34 +35,36 @@ public class Vampire {
         if (zufallsergebnis <= 6) {
             drinkBlood();
             // User Input -> "Möchtest du Blut saugen?" -> "Ja" oder "Nein"
-
         }
-        if (zufallsergebnis > 6) {
-
+        if (zufallsergebnis > 6) { 
+            System.out.println("Der Mensch konnte deinen Angriff abwehren.");
         }
     }
 
     // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
-    // Ich frage mich, ob die Anzahl Blut in Liter gezielt aufgesaugt werden kann,
-    // oder ob es zufällig ist, wie viel Liter der Vampur trinkt.
-    public boolean drinkBlood() {
-        int zufallsergebnis = random.nextInt(10) + 1;
-        if (zufallsergebnis <= 6) {
-
+    public void drinkBlood(){
+        int amount = random.nextInt(10) + 1;
+        if (amount <= 6) {
+        // wie viel kann er denn trinken? (Input möglichkeit?)
         }
+        
+    }
+
+    public boolean isDrinkingBlood() {
+        return isDrinkingBlood;
     }
 
     // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des
     // Schadens reduziert werden
     public void takeDamage(Vampire Paul) {
-        int damage = // hier muss die;
+        int damage = random.nextInt(10) + 1; // Hier muss jedoch überall die Zufallsvariable übernommen werden, sonst haben wir überall verschiedene Variablen
                 energy = energy - damage;
         if (energy <= 0) {
             finallyDead = true;
             System.out.println("OH NEIN! DEIN VAMPIR IST GESTORBEN");// lol
         } else {
             System.out.println("Dein Vampir hat noch" + energy + "Lass dich nicht noch einmal treffen!");
-            // Setter
+            
         }
     }
 
@@ -101,10 +107,6 @@ public class Vampire {
 
     public void setCreator(Vampire creator) {
         this.creator = creator;
-    }
-
-    public boolean isDrinkingBlood() {
-        return isDrinkingBlood;
     }
 
     public void setDrinkingBlood(boolean isDrinkingBlood) {
