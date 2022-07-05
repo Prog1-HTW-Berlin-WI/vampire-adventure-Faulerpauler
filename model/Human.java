@@ -9,6 +9,7 @@ public class Human {
     private Random amountOfBlood = random.nextInt(10)+1;  // zufallsvariable von 6, 7 oder 8 
     Random random;
 
+
     public Human(Random amountOfBlood){
         this.amountOfBlood = amountOfBlood;
 
@@ -28,15 +29,16 @@ public class Human {
             System.out.println("Der Mensch ist dir entflohen");
     }
 
-    public void turnintoVampire(Human human)
+    public void turnintoVampire(Human human){
         if(amountOfBlood <= 5){
             //setmethode 
         }
+    }
 
 
     // Getter & Setter
 
-    public String getName() {
+    public String getName(){
         return name;
     }
 
@@ -59,6 +61,8 @@ public class Human {
     public void setAmountOfBlood(Random amountOfBlood) {
         this.amountOfBlood = amountOfBlood;
     }
+}
+
 }
 
 

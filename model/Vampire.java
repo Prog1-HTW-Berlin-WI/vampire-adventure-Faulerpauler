@@ -18,7 +18,7 @@ public class Vampire {
 
     public Vampire(String name) {
         this.name = name;
-
+// Creator Vampire hinzufügen
     }
 
     // Die Zufallsvariable muss in jede Methode gleich übernommen werden - bspw.
@@ -27,21 +27,21 @@ public class Vampire {
         if (zufallsergebnis <= 6) {
             drinkBlood();
             // User Input -> "Möchtest du Blut saugen?" -> "Ja" oder "Nein"
-
         }
-        if (zufallsergebnis > 6) {
-
+        if (zufallsergebnis > 6) { 
+            System.out.println("Der Mensch konnte deinen Angriff abwehren.");
         }
     }
 
     // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
     // Ich frage mich, ob die Anzahl Blut in Liter gezielt aufgesaugt werden kann,
     // oder ob es zufällig ist, wie viel Liter der Vampur trinkt.
-    public boolean drinkBlood() {
-        int zufallsergebnis = random.nextInt(10) + 1;
-        if (zufallsergebnis <= 6) {
-
+    public void drinkBlood(double amount){
+        int amount = random.nextInt(10) + 1;
+        if (amount <= 6) {
+        // wie viel kann er denn trinken? (Input möglichkeit?)
         }
+        return false;
     }
 
     // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des
