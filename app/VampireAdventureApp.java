@@ -9,14 +9,15 @@ import model.Vampire;
 public class VampireAdventureApp {
     // Scanner
     private static Scanner scanner = new Scanner(System.in);
+    static Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
+    static CreatorVampire[] creatorVampires = new CreatorVampire[10]; // Auf 1 Creator Vampire begrenzt
 
     /**
      * @param args mainklasse
      */
     public static void main(String[] args) {
+
         showMenu();
-        Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
-        CreatorVampire[] creatorVampires = new CreatorVampire[10]; // Auf 1 Creator Vampire begrenzt
 
     }
 
@@ -151,21 +152,46 @@ public class VampireAdventureApp {
         String creatorVampireName = stringEingabe();
         System.out.println(creatorVampireName + "? Ein super Name!");
 
-        Vampire newCreatorVampire = new CreatorVampire(creatorVampireName);
-        for (int i = 0; i < creatorVampires.length; i++)
-            System.out.println("Dein Creator Vampire wurde erstellt!");
+        CreatorVampire newCreatorVampire = new CreatorVampire(creatorVampireName);
+
+        for (int i = 0; i < creatorVampires.length; i++) {
+            if (creatorVampires[i] == null) {
+                creatorVampires[i] = newCreatorVampire;
+            } else {
+                System.out.println("Du kannst leider keinen weiteren Creator Vampire erstellen. ");
+            }
+        }
+
+        System.out.println("Dein Creator Vampire wurde erstellt!");
         createVampireMenu();
 
     }
 
     // Create Vampire
     private static void createVampire() {
-        System.out.println("Wie soll dein Vampir heißen?");
-        String vampireName = stringEingabe();
-        System.out.println(vampireName + "? Ein super Name!");
+        boolean b = false;
+        for (int i = 0; i < vampires.length; i++) { // CHeck if Vampires Array is full
+            if (vampires[i] == null) {
+                b = true;
+            }
+        }
+        if (b == true) { // Array is not full
+            System.out.println("Wie soll dein Vampir heißen?");
+            String vampireName = stringEingabe();
+            System.out.println(vampireName + "? Ein super Name!");
 
-        Vampire newVampire = new Vampire(vampireName, null);
-        System.out.println("Dein Vampire wurde erstellt!");
+            Vampire newVampire = new Vampire(vampireName, null);
+
+            for (int i = 0; i < vampires.length; i++) {
+                if (vampires[i] == null) {
+                    vampires[i] = newVampire;
+                }
+
+            }
+            System.out.println("Dein Vampire wurde erstellt!");
+        } else { // Array is full
+            System.out.println("Du kannst leider keinen weiteren Vampire erstellen. ");
+        }
         createVampireMenu();
 
     }
