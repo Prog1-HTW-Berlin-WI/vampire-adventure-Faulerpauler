@@ -34,27 +34,29 @@ public class Vampire {
     }
 
     // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
-    // Ich frage mich, ob die Anzahl Blut in Liter gezielt aufgesaugt werden kann,
-    // oder ob es zufällig ist, wie viel Liter der Vampur trinkt.
-    public void drinkBlood(double amount){
+    public void drinkBlood(){
         int amount = random.nextInt(10) + 1;
         if (amount <= 6) {
         // wie viel kann er denn trinken? (Input möglichkeit?)
         }
-        return false;
+        
+    }
+
+    public boolean isDrinkingBlood() {
+        return isDrinkingBlood;
     }
 
     // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des
     // Schadens reduziert werden
     public void takeDamage(Vampire Paul) {
-        int damage = // hier muss die;
+        int damage = random.nextInt(10) + 1; // Hier muss jedoch überall die Zufallsvariable übernommen werden, sonst haben wir überall verschiedene Variablen
                 energy = energy - damage;
         if (energy <= 0) {
             finallyDead = true;
             System.out.println("OH NEIN! DEIN VAMPIR IST GESTORBEN");// lol
         } else {
             System.out.println("Dein Vampir hat noch" + energy + "Lass dich nicht noch einmal treffen!");
-            // Setter
+            
         }
     }
 
@@ -97,10 +99,6 @@ public class Vampire {
 
     public void setCreator(Vampire creator) {
         this.creator = creator;
-    }
-
-    public boolean isDrinkingBlood() {
-        return isDrinkingBlood;
     }
 
     public void setDrinkingBlood(boolean isDrinkingBlood) {
