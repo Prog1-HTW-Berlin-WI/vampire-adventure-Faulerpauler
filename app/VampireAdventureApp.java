@@ -15,16 +15,9 @@ public class VampireAdventureApp {
      */
     public static void main(String[] args) {
         showMenu();
-        int choice = intEingabe();
-        mainMenuChoise(choice);
-        /*
-         * while (true) {
-         * showMenu();
-         * int choice = readUserInput();
-         * mainMenuChoise(choice);
-         * System.out.println("====================");
-         * }
-         */
+        Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
+        CreatorVampire[] creatorVampires = new CreatorVampire[10]; // Auf 1 Creator Vampire begrenzt
+
     }
 
     /**
@@ -47,7 +40,7 @@ public class VampireAdventureApp {
     private static String stringEingabe() {
         String choiceInternal = "";
         try {
-            choiceInternal += scanner.nextLine();
+            choiceInternal = scanner.next();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -155,12 +148,12 @@ public class VampireAdventureApp {
     // Create Creator Vampire
     private static void createCreatorVampire() {
         System.out.println("Wie soll dein Creator Vampir heißen?");
-        String creatorVampireName;
-        creatorVampireName = scanner.nextLine();
+        String creatorVampireName = stringEingabe();
         System.out.println(creatorVampireName + "? Ein super Name!");
 
         Vampire newCreatorVampire = new CreatorVampire(creatorVampireName);
-        System.out.println("Dein Creator Vampire wurde erstellt!");
+        for (int i = 0; i < creatorVampires.length; i++)
+            System.out.println("Dein Creator Vampire wurde erstellt!");
         createVampireMenu();
 
     }
@@ -168,11 +161,10 @@ public class VampireAdventureApp {
     // Create Vampire
     private static void createVampire() {
         System.out.println("Wie soll dein Vampir heißen?");
-        String vampireName;
-        vampireName = stringEingabe();
+        String vampireName = stringEingabe();
         System.out.println(vampireName + "? Ein super Name!");
 
-        Vampire newVampire = new Vampire(vampireName);
+        Vampire newVampire = new Vampire(vampireName, null);
         System.out.println("Dein Vampire wurde erstellt!");
         createVampireMenu();
 
