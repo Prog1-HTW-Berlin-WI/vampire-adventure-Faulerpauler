@@ -6,6 +6,7 @@ public class CreatorVampire extends Vampire {
 
     // Konstruktor
     public CreatorVampire(String name) {
+        super();
         this.name = name;
     }
 
