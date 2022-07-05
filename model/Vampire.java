@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Vampire {
     private String id = UUID.randomUUID().toString();
-    public String name; // auf public damit Konstruktor von CreatorVampire darauf zugreifen kann
+    protected String name;
     private int grandness;
     private int hunger = 5;
     private Vampire creator = null;
@@ -16,8 +16,12 @@ public class Vampire {
     private boolean finallyDead; // unwiederbringlich tot
     Random random = new Random();
 
-    public Vampire(String name) {
+    public Vampire(String name, Vampire creator) {
         this.name = name;
+        this.creator = creator;
+    }
+
+    public Vampire() {
 
     }
 
