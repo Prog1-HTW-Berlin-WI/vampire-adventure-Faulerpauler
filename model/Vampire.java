@@ -18,15 +18,12 @@ public class Vampire {
 
     public Vampire(String name, Vampire creator) {
         this.name = name;
-<<<<<<< HEAD
         this.creator = creator;
     }
 
     public Vampire() {
 
-=======
-// Creator Vampire hinzufügen
->>>>>>> 35e4b7737baea43eb0c1b36133e1eb1ec840bcc8
+        // Creator Vampire hinzufügen
     }
 
     // Die Zufallsvariable muss in jede Methode gleich übernommen werden - bspw.
@@ -36,18 +33,18 @@ public class Vampire {
             drinkBlood();
             // User Input -> "Möchtest du Blut saugen?" -> "Ja" oder "Nein"
         }
-        if (zufallsergebnis > 6) { 
+        if (zufallsergebnis > 6) {
             System.out.println("Der Mensch konnte deinen Angriff abwehren.");
         }
     }
 
     // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
-    public void drinkBlood(){
+    public void drinkBlood() {
         int amount = random.nextInt(10) + 1;
         if (amount <= 6) {
-        // wie viel kann er denn trinken? (Input möglichkeit?)
+            // wie viel kann er denn trinken? (Input möglichkeit?)
         }
-        
+
     }
 
     public boolean isDrinkingBlood() {
@@ -57,14 +54,15 @@ public class Vampire {
     // damage gibt es noch nicht - doch die Energie muss anhand der Stärke des
     // Schadens reduziert werden
     public void takeDamage(Vampire Paul) {
-        int damage = random.nextInt(10) + 1; // Hier muss jedoch überall die Zufallsvariable übernommen werden, sonst haben wir überall verschiedene Variablen
-                energy = energy - damage;
+        int damage = random.nextInt(10) + 1; // Hier muss jedoch überall die Zufallsvariable übernommen werden, sonst
+                                             // haben wir überall verschiedene Variablen
+        energy = energy - damage;
         if (energy <= 0) {
             finallyDead = true;
             System.out.println("OH NEIN! DEIN VAMPIR IST GESTORBEN");// lol
         } else {
             System.out.println("Dein Vampir hat noch" + energy + "Lass dich nicht noch einmal treffen!");
-            
+
         }
     }
 
