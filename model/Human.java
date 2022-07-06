@@ -6,13 +6,23 @@ public class Human {
     
     private String name;
     private String id = UUID.randomUUID().toString();
-    private Random amountOfBlood = random.nextInt(10)+1;  // zufallsvariable von 6, 7 oder 8 
     Random random;
+    private int amountOfBlood = getRandomNumberInRange(6, 8);  // zufallsvariable von 6, 7 oder 8 
+  
 
 
-    public Human(Random amountOfBlood){
+    public Human(int amountOfBlood){
         this.amountOfBlood = amountOfBlood;
 
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        if (min >= max){
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        Random r = new Random(); 
+        return r.nextInt((max - min) + 1) + min;
+   
     }
 
     public void defend(int verteidigung){
@@ -27,14 +37,18 @@ public class Human {
         flee = random.nextInt(4)+1;
         if(flee == 1){
             System.out.println("Der Mensch ist dir entflohen");
+        if (flee != 1){
+            System.out.println("Der Mensch hat es nicht geschafft dir zu entfliehen");
+            }
+        }
     }
 
     public void turnintoVampire(Human human){
         if(amountOfBlood <= 5){
+            System.out.println("Du hast einen neuen Vampir geschaffen, er wird dir von nun an als dein Abkömmling dienen");
             //setmethode 
         }
     }
-
 
     // Getter & Setter
 
@@ -54,15 +68,13 @@ public class Human {
         this.id = id;
     }
 
-    public Random getAmountOfBlood() {
+    public int getAmountOfBlood() {
         return amountOfBlood;
     }
 
-    public void setAmountOfBlood(Random amountOfBlood) {
+    public void setAmountOfBlood(int amountOfBlood){
         this.amountOfBlood = amountOfBlood;
     }
+    
 }
-
-}
-
 
