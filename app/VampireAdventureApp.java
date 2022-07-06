@@ -1,6 +1,6 @@
 package app;
 
-import java.util.Random;
+//import java.util.Random;
 import java.util.Scanner;
 
 import model.CreatorVampire;
@@ -10,12 +10,22 @@ public class VampireAdventureApp {
     // Scanner
     private static Scanner scanner = new Scanner(System.in);
     static Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
-    static CreatorVampire[] creatorVampires = new CreatorVampire[10]; // Auf 1 Creator Vampire begrenzt
+    static CreatorVampire[] creatorVampires = new CreatorVampire[1]; // Auf 1 Creator Vampire begrenzt
+    static Vampire selectedVampire;
 
     /**
      * @param args mainklasse
      */
     public static void main(String[] args) {
+        // Bei Start des Spiels Vampire erstellen
+        CreatorVampire standardCreatorVampire = new CreatorVampire("Edward");
+        creatorVampires[0] = standardCreatorVampire;
+
+        Vampire standardVampire1 = new Vampire("Bella", standardCreatorVampire);
+        Vampire standardVampire2 = new Vampire("Jacob", standardCreatorVampire);
+        vampires[0] = standardVampire1;
+        vampires[1] = standardVampire2;
+        selectedVampire = standardCreatorVampire;
 
         showMenu();
 
@@ -92,7 +102,7 @@ public class VampireAdventureApp {
                 "(4)\t Delete Vampire", "(5)\t Start Nightly Adventure", "(6)\t Quit" };
 
         System.out.println("\nVampire Adventures 1.0\n");
-        System.out.println("Selected Vampire: <Selected Vampire Name>\n");
+        System.out.println("Selected Vampire: <" + selectedVampire.getName() + ">\n");
 
         for (int i = 1; i < menuItems.length; i++) {
             System.out.println(menuItems[i]);
@@ -148,21 +158,30 @@ public class VampireAdventureApp {
 
     // Create Creator Vampire
     private static void createCreatorVampire() {
-        System.out.println("Wie soll dein Creator Vampir heißen?");
-        String creatorVampireName = stringEingabe();
-        System.out.println(creatorVampireName + "? Ein super Name!");
-
-        CreatorVampire newCreatorVampire = new CreatorVampire(creatorVampireName);
-
-        for (int i = 0; i < creatorVampires.length; i++) {
+        boolean b = false;
+        for (int i = 0; i < creatorVampires.length; i++) { // Check if Creator Vampires Array is full
             if (creatorVampires[i] == null) {
-                creatorVampires[i] = newCreatorVampire;
-            } else {
-                System.out.println("Du kannst leider keinen weiteren Creator Vampire erstellen. ");
+                b = true;
             }
         }
+        if (b == true) {
+            System.out.println("Wie soll dein Creator Vampir heißen?");
+            String creatorVampireName = stringEingabe();
+            System.out.println(creatorVampireName + "? Ein super Name!");
 
-        System.out.println("Dein Creator Vampire wurde erstellt!");
+            CreatorVampire newCreatorVampire = new CreatorVampire(creatorVampireName);
+
+            for (int i = 0; i < creatorVampires.length; i++) {
+                if (creatorVampires[i] == null) {
+                    creatorVampires[i] = newCreatorVampire;
+                }
+
+            }
+
+            System.out.println("Dein Creator Vampire wurde erstellt!");
+        } else { // Array is full
+            System.out.println("Du kannst leider keinen weiteren Creator Vampire erstellen. ");
+        }
         createVampireMenu();
 
     }
@@ -170,7 +189,7 @@ public class VampireAdventureApp {
     // Create Vampire
     private static void createVampire() {
         boolean b = false;
-        for (int i = 0; i < vampires.length; i++) { // CHeck if Vampires Array is full
+        for (int i = 0; i < vampires.length; i++) { // Check if Vampires Array is full
             if (vampires[i] == null) {
                 b = true;
             }
@@ -208,9 +227,11 @@ public class VampireAdventureApp {
      */
     private static void listAllVampires() {
 
-        String listAllVampiresMenu[] = { "", "(1)\t<Vampire Name>\t<Vampire Grandness?>",
-                "(2)\t<Vampire Name>\t<Vampire Grandness?>",
-                "(3)\t<Vampire Name>\t<Vampire Grandness?>", "(4)\tZurück zum Hauptmenü" };
+        String listAllVampiresMenu[] = { "",
+                "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" + creatorVampires[0].getEnergy() + "> ",
+                "(1)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy() + "> ",
+                "(1)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy() + "> ",
+                "(4)\tZurück zum Hauptmenü" };
 
         System.out.println("\nSelect a Vampire\n");
 
@@ -223,22 +244,25 @@ public class VampireAdventureApp {
     }
 
     /**
-     * createVampire choices
+     * list all Vampires choices
      * 
      * @param choice
      */
     private static void listAllVampiresChoice(int choice) {
         switch (choice) {
             case 1:
-                System.out.println("\tUnfortunately this doesn't work yet.");
+                selectedVampire = creatorVampires[0];
+                System.out.println("\tYou selected the Vampire <" + creatorVampires[0].getName() + ">");
                 listAllVampires();
                 break;
             case 2:
-                System.out.println("\tUnfortunately this doesn't work yet.");
+                selectedVampire = vampires[0];
+                System.out.println("\tYou selected the Vampire <" + vampires[0].getName() + ">");
                 listAllVampires();
                 break;
             case 3:
-                System.out.println("\tUnfortunately this doesn't work yet.");
+                selectedVampire = vampires[1];
+                System.out.println("\tYou selected the Vampire <" + vampires[1].getName() + ">");
                 listAllVampires();
                 break;
             case 4:
