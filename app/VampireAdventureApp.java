@@ -9,7 +9,7 @@ import model.Vampire;
 public class VampireAdventureApp {
     // Scanner
     private static Scanner scanner = new Scanner(System.in);
-    static Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
+    static Vampire[] vampires = new Vampire[10]; // Auf 10 Vampires begrenzt
     static CreatorVampire[] creatorVampires = new CreatorVampire[1]; // Auf 1 Creator Vampire begrenzt
     static Vampire selectedVampire;
 
@@ -23,8 +23,9 @@ public class VampireAdventureApp {
 
         Vampire standardVampire1 = new Vampire("Bella", standardCreatorVampire);
         Vampire standardVampire2 = new Vampire("Jacob", standardCreatorVampire);
-        vampires[0] = standardVampire1;
-        vampires[1] = standardVampire2;
+        vampires[0] = standardCreatorVampire;
+        vampires[1] = standardVampire1;
+        vampires[2] = standardVampire2;
         selectedVampire = standardCreatorVampire;
 
         showMenu();
@@ -64,7 +65,7 @@ public class VampireAdventureApp {
      * 
      * @param choice mainmenu
      */
-    private static void mainMenuChoise(int choice) {
+    private static void mainMenuChoice(int choice) {
         switch (choice) {
             case 1:
                 createVampireMenu();
@@ -109,7 +110,7 @@ public class VampireAdventureApp {
         }
 
         int choice = intEingabe();
-        mainMenuChoise(choice);
+        mainMenuChoice(choice);
 
     }
 
@@ -174,8 +175,15 @@ public class VampireAdventureApp {
             for (int i = 0; i < creatorVampires.length; i++) {
                 if (creatorVampires[i] == null) {
                     creatorVampires[i] = newCreatorVampire;
+                    break;
                 }
+            }
 
+            for (int i = 0; i < vampires.length; i++) {
+                if (vampires[i] == null) {
+                    vampires[i] = newCreatorVampire;
+                    break;
+                }
             }
 
             System.out.println("Dein Creator Vampire wurde erstellt!");
@@ -216,8 +224,7 @@ public class VampireAdventureApp {
     }
 
     private static void showSelectedVampire() {
-        System.out.println(
-                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier kannst du dir alle Attribute deines ausgewählten Vampirs anzeigen lassen.\n");
+
         showMenu();
     }
 
@@ -227,15 +234,15 @@ public class VampireAdventureApp {
      */
     private static void listAllVampires() {
 
-        String listAllVampiresMenu[] = { "",
+        String listAllVampiresMenu[] = {
                 "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" + creatorVampires[0].getEnergy() + "> ",
-                "(1)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy() + "> ",
-                "(1)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy() + "> ",
+                "(2)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy() + "> ",
+                "(3)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy() + "> ",
                 "(4)\tZurück zum Hauptmenü" };
 
         System.out.println("\nSelect a Vampire\n");
 
-        for (int i = 1; i < listAllVampiresMenu.length; i++) {
+        for (int i = 0; i < listAllVampiresMenu.length; i++) {
             System.out.println(listAllVampiresMenu[i]);
         }
         int choice = intEingabe();
@@ -276,10 +283,76 @@ public class VampireAdventureApp {
         }
     }
 
+    /**
+     * delete Vampire Menu
+     * 
+     */
+    /*
+     * private static void deleteVampire() {
+     * String deleteVampireMenu[] = {
+     * "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" +
+     * creatorVampires[0].getEnergy() + "> ",
+     * "(2)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy()
+     * + "> ",
+     * "(3)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy()
+     * + "> ",
+     * "(4)\tZurück zum Hauptmenü" };
+     * 
+     * System.out.println("\nSelect a Vampire to delete\n");
+     * 
+     * for (int i = 0; i < deleteVampireMenu.length; i++) {
+     * 
+     * System.out.println(deleteVampireMenu[i]);
+     * }
+     * int choice = intEingabe();
+     * 
+     * deleteVampireChoice(choice);
+     * }
+     */
+
     private static void deleteVampire() {
-        System.out.println(
-                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier kannst du Vampire löschen.\n");
-        showMenu();
+        System.out.println("\nSelect a Vampire to delete\n");
+
+        for (int i = 0; i < vampires.length; i++) {
+            if (vampires[i] != null) {
+                System.out.println("(" + (i + 1) + ")\t<" + vampires[i].getName() + ">\t Energy: <"
+                        + vampires[i].getEnergy() + "> ");
+            }
+        }
+        System.out.println("(0)\t Zurück zum Hauptmenü");
+    }
+
+    /**
+     * delete Vampires choices
+     * 
+     * @param choice
+     */
+    private static void deleteVampireChoice(int choice) {
+        switch (choice) {
+            case 1:
+                System.out.println("\tThe Vampire <" + creatorVampires[0].getName() + "> has been deleted.");
+                creatorVampires[0] = null;
+                deleteVampire();
+                break;
+            case 2:
+                System.out.println("\tThe Vampire <" + vampires[0].getName() + "> has been deleted.");
+                vampires[0] = null;
+                deleteVampire();
+                break;
+            case 3:
+                System.out.println("\tThe Vampire <" + vampires[1].getName() + "> has been deleted.");
+                vampires[1] = null;
+                deleteVampire();
+                break;
+            case 0:
+                showMenu();
+                break;
+            default: {
+                System.out.println("Invalid input. Please choose a valid number");
+                deleteVampire();
+                break;
+            }
+        }
     }
 
     private static void startNightlyAdventure() {

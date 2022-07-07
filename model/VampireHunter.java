@@ -1,50 +1,51 @@
 package model;
+
 import java.util.UUID;
 import java.util.Random;
 
 public class VampireHunter {
 
-    private String id = UUID.randomUUID().toString(); 
-    public String name; 
-    public int experiencePoints; 
-    public int energy = 1000; // Hier heißt das Attribut genauso wie beim Vampire -  Könnte das zu Problemen führen?
-    public Random random; 
+    private String id = UUID.randomUUID().toString();
+    public String name;
+    public int experiencePoints;
+    public int energy = 1000; // Hier heißt das Attribut genauso wie beim Vampire - Könnte das zu Problemen
+                              // führen?
+    public Random random;
 
-    public void attackVampire(int Treffer){
+    public void attackVampire(int Treffer) {
         Treffer = random.nextInt(1);
-        if (Treffer == 0){
+        if (Treffer == 0) {
             System.out.println("Dein Vampir wurde vom VampireHunter getroffen! Du erleidest drei Schadenspunkte");
         }
-        if (Treffer == 1){
+        if (Treffer == 1) {
             System.out.println("Du bist der Waffe des VampireHunters ausgewichen");
         }
     }
 
-    public void takeDamage(int amount){
+    public void takeDamage(int amount) {
         amount = 5; // statt 5 -> damage dealt by vampire
         energy = energy - amount;
         System.out.println("Dein Vampir hat den VampireHunter verletzt.");
 
     }
 
-    public void flee(){
+    public void flee() {
         System.out.println("Ich fliehe nicht, ehe ich euch alle ausgerotter habe");
     }
 
-    public void alive(){
-        if(energy <= 0){
+    public void alive() {
+        if (energy <= 0) {
             System.out.println("Der VampireHunter ist gestorben. Ein Sieg für uns Vampire");
-        }
-        else{
+        } else {
             System.out.println("Der VampireHunter lebt noch immer?!");
         }
-        
+
     }
 
-    //Konstruktor 
-    public VampireHunter(String name){
-    this.name = name;
-    
+    // Konstruktor
+    public VampireHunter(String name) {
+        this.name = name;
+
     }
 
     // Getter & Setter
@@ -79,5 +80,5 @@ public class VampireHunter {
     public void setEnergy(int energy) {
         this.energy = energy;
     }
-    
+
 }
