@@ -202,12 +202,17 @@ public class VampireAdventureApp {
                 b = true;
             }
         }
+        if (creatorVampires[0] == null) {
+            System.out.println("You have to create a Creator Vampire first");
+            createVampireMenu();
+        }
+
         if (b == true) { // Array is not full
             System.out.println("Wie soll dein Vampir heißen?");
             String vampireName = stringEingabe();
             System.out.println(vampireName + "? Ein super Name!");
 
-            Vampire newVampire = new Vampire(vampireName, null);
+            Vampire newVampire = new Vampire(vampireName, creatorVampires[0]);
 
             for (int i = 0; i < vampires.length; i++) {
                 if (vampires[i] == null) {
