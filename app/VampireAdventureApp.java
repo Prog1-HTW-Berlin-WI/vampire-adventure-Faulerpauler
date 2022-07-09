@@ -6,6 +6,7 @@ import java.util.Scanner;
 import model.CreatorVampire;
 import model.Human;
 import model.Vampire;
+import model.VampireHunter;
 
 public class VampireAdventureApp {
     // Scanner
@@ -483,9 +484,11 @@ public class VampireAdventureApp {
 
             if (Ereignis <= 7) {// Human
                 meetHuman();
+
             }
             if (Ereignis > 7 && Ereignis <= 9) { // Vampire Hunter
                 meetVampireHunter();
+                nextRound();
 
             } else { // Nothing
                 System.out.println("hurry! Find fresh blood, before the sunrise will end your journey");
@@ -516,7 +519,7 @@ public class VampireAdventureApp {
                 System.out.println("The Escape attempt failed. Get him!!");
             }
 
-            Vampire attackingVampire = chooseVampire();
+            Vampire attackingVampire = chooseVampire("attack with");
 
             if (bob.defend() == true) {// hat sich verteidigt
                 nextRound();
@@ -530,7 +533,15 @@ public class VampireAdventureApp {
                                 + " liters of blood.\nHow much do you want to drink?");
                         int drinkChoice = intEingabe();
                         attackingVampire.drinkBlood(drinkChoice, bob);
-                        bob.turnintoVampire();
+
+                        if (bob.getAmountOfBlood() < 5) {
+                            Vampire newVampire = bob.turnintoVampire(attackingVampire);
+                            for (int i = 0; i < vampires.length; i++) {
+                                if (vampires[i] != null) {
+                                    vampires[i] = newVampire;
+                                }
+                            }
+                        }
                     } else {
                         break;
                     }
@@ -542,8 +553,8 @@ public class VampireAdventureApp {
 
     }
 
-    private static Vampire chooseVampire() {
-        System.out.println("\nSelect a Vampire to attack with\n");
+    private static Vampire chooseVampire(String action) {
+        System.out.println("\nSelect a Vampire to " + action + "\n");
         int x = 1;
         for (int i = 0; i < vampires.length; i++) {
             String isCreator = "";
@@ -570,52 +581,133 @@ public class VampireAdventureApp {
     }
 
     public static void meetVampireHunter() {
+        VampireHunter blade = new VampireHunter("Blade");
         System.out.println("A Vampire Hunter has crossed your way. Your time has come...");
         // OPTION TO CHOOSE {1}, {2}, {3}, {4}
+        String VHoptions[] = { "<1>\t Sacrifice one of your vampires",
+                "<2>\t Try to flee from the vampire hunter",
+                "<3>\t Fight the vampire hunter",
+                "<4>\t Call it a night" };
+        while (true) {
+            for (int i = 0; i < VHoptions.length; i++) {
+                System.out.println(VHoptions[i]);
+            }
+            int choice = intEingabe();
+            switch (choice) {
+                case 1:
+                    sacrifice(blade);
+                    return;
+                case 2:
+                    flee(blade);
+                    return;
+                case 3:
+                    fight(blade);
+
+                case 4:
+                    callItANight();
+                default:
+                    System.out.println("Invalid input, please choose a number between 1 and 4.");
+            }
+        }
     }
 
     // 1. SACRIFICE
-    Random random;
 
-    void sacrifice() {
+    public static void sacrifice(VampireHunter name) {
+        Vampire creator = vampires[0];
+        for (int i = 0; i < vampires.length; i++) {
+            if (vampires[i] instanceof CreatorVampire) {
+                creator = vampires[i];
+            }
+        }
         // DELETE SACRFICED VAMPIRE
-        int ZufallSacrifice = random.nextInt(1) + 1;
+        while (true) {
+            Vampire sacrification = chooseVampire("sacrifice");
+            if (sacrification instanceof CreatorVampire) {
+                System.out.println("You can't sacrifice your creator Vampire");
+            } else {
+                for (int i = 0; i < vampires.length; i++) {
+                    if (vampires[i].getId() == sacrification.getId()) {
+                        vampires[i] = null;
+                    }
+                }
+                break;
+            }
+        }
+        Random random = new Random();
+        int ZufallSacrifice = random.nextInt(1);
         if (ZufallSacrifice == 1) {
             System.out.println("The Sacrfice could satisfy the VampireHunter. The VampireHunter left");
-            // END ROUND
+            return;
         } else {
             System.out.println("The VampireHunter is still on a rampage, watch out!!");
-            attackVampire();
-            // BACK TO OPTIONS
+            name.attackVampire(creator);
+            return;
         }
     }
 
     // 2. FLee
-    void flee() {
-        Random random;
+    public static void flee(VampireHunter name) {
+        Vampire creator = vampires[0];
+        for (int i = 0; i < vampires.length; i++) {
+            if (vampires[i] instanceof CreatorVampire) {
+                creator = vampires[i];
+            }
+        }
+
+        Random random = new Random();
         int ZufallFlee = random.nextInt(10) + 1;
         if (ZufallFlee <= 6) {
-            System.out.println("Watch your steps, fortunately, this time we managed to escaped.");
-            // END ROUND
+            System.out.println("Watch your steps, fortunately, this time we managed to escape.");
+            return;
         } else {
+            System.out.println("Your escape failed!!! The vampire hunter is starting another attack!!");
+            name.attackVampire(creator);
+            return;
 
         }
     }
 
     // 3. FIGHT
-    void fight() {
-        Random random;
-        int ZufallFight = random.nextInt(3) + 1;
+    public static void fight(VampireHunter name) {
+        Vampire creator = vampires[0];
+        for (int i = 0; i < vampires.length; i++) {
+            if (vampires[i] instanceof CreatorVampire) {
+                creator = vampires[i];
+            }
+        }
+
+        Random random = new Random();
+        int ZufallFight = random.nextInt(3);
+        if (ZufallFight == 0) {
+            name.takeDamage(150);
+            System.out.println(
+                    "You injured the VampireHunter. The VampireHunter has " + name.getEnergy() + " energy left.");
+        }
         if (ZufallFight == 1) {
-            System.out.println("You injured the VampireHunter. The VampireHunter has " + energy + " energy left.");
-            // ATTACK VAMPIRE
+            name.takeDamage(300);
+            System.out.println(
+                    "You just landed a critical hit. The VampireHunter has " + name.getEnergy() + " energy left.");
 
-        }
-        if (ZufallFight == 2) {
-            System.out.println("You just landed a critical hit. The VampireHunter has " + energy + " energy left.");
-            // ATTACK VAMPIRE
+        } else {
+            System.out.println("You missed!! This could be your End!!");
         }
 
+        name.attackVampire(creator);
+        return;
+    }
+
+    public static void callItANight() {
+        System.out.println("You chickened out! The night is over now!");
+        while (true) {
+            System.out.println("\nPress <1> to get back to the main menu.");
+            int choice = intEingabe();
+            if (choice == 1) {
+                showMenu();
+            } else {
+                System.out.println("Invalid input!");
+            }
+        }
     }
 
     private static void quit() {

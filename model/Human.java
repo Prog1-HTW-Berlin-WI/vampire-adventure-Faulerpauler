@@ -37,12 +37,10 @@ public class Human {
         }
     }
 
-    public void turnintoVampire() {
-        if (this.amountOfBlood < 5) {
-
-            System.out.println("You just created a new member of the Family");
-
-        }
+    public Vampire turnintoVampire(Vampire creator) {
+        Vampire newVampire = new Vampire(this.name, creator);
+        System.out.println("You just created a new member of the Family");
+        return newVampire;
     }
 
     // Getter & Setter
