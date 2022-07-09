@@ -31,10 +31,10 @@ public class Vampire {
         int zufallsergebnis = random.nextInt(10) + 1;
         if (zufallsergebnis <= 6) {
             drinkBlood();
-            // User Input -> "Möchtest du Blut saugen?" -> "Ja" oder "Nein"
+            // User Input -> "Du hast den Menschen ruhig gestellt. Möchtest du Blut saugen?" -> "Ja" oder "Nein"
         }
         if (zufallsergebnis > 6) {
-            System.out.println("Der Mensch konnte deinen Angriff abwehren.");
+            System.out.println("Du hast es nicht .");
         }
     }
 
@@ -43,11 +43,14 @@ public class Vampire {
         int amount = random.nextInt(10) + 1;
         if (amount <= 6) {
             // wie viel kann er denn trinken? (Input möglichkeit?)
+        } else{
+            
         }
 
     }
 
     public boolean isDrinkingBlood() {
+        //IF ja dann true setzen 
         return isDrinkingBlood;
     }
 

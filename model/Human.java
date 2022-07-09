@@ -29,23 +29,24 @@ public class Human {
        
         verteidigung = random.nextInt(4)+1;
         if(verteidigung == 1){
-            System.out.println("Der Mensch hat sich verteidigt, schnapp ihn dir endlich");
+            System.out.println("The Human threw Garlic at you! Damn that stinks...");
+            //else
         }
     }
 
     public void flee(int flee){
         flee = random.nextInt(4)+1;
         if(flee == 1){
-            System.out.println("Der Mensch ist dir entflohen");
+            System.out.println("The Human managed to flee");
         if (flee != 1){
-            System.out.println("Der Mensch hat es nicht geschafft dir zu entfliehen");
+            System.out.println("The Escape Attempt failed. Get him!!");
             }
         }
     }
 
     public void turnintoVampire(Human human){
         if(amountOfBlood <= 5){
-            System.out.println("Du hast einen neuen Vampir geschaffen, er wird dir von nun an als dein Abkömmling dienen");
+            System.out.println("You just created a new member of the Family");
             //setmethode 
         }
     }

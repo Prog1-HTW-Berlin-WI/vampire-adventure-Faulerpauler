@@ -1,6 +1,6 @@
 package app;
 
-//import java.util.Random;
+import java.util.Random;
 import java.util.Scanner;
 
 import model.CreatorVampire;
@@ -459,10 +459,48 @@ public class VampireAdventureApp {
     }
 
     private static void startNightlyAdventure() {
-        System.out.println(
-                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier kannst du dein Abenteur starten\n");
-        showMenu();
+        System.out.println("Rise vampires, the sun has gone down and there is lots that needs to be done.")
+        System.out.println("“Time is running: Round 1”");
+        Random random;
+
+        int counter = 0;
+            while (counter <= 15){
+                counter++;
+                int Ereignis = random.nextInt(10) + 1;
+                if(Ereignis <= 7){
+                    meetHuman();
+                }
+                if(Ereignis > 7 && Ereignis =< 9){
+
+                }
+                if(Ereignis == 10){
+                    Nothing();
+                    continue; 
+                }
+                
+            }
+                
+            }
+//Print Counter and a  hint 
+
+    private static void meetHuman(){
+        System.out.println("A Human! Get him!");
+        Random random;
+        int ZufallHuman = random.nextInt(10) + 1;
+        
     }
+
+    public static void VampireHunter(){
+        System.out.println("A Vampire Hunter has crossed your way. Your time has come...");
+
+    }
+
+    public static void Nothing(){
+         System.out.println("hurry! Find fresh blood, before the sunrise will end your journey");
+         
+     }
+
+    
 
     private static void quit() {
         System.out.println("\nDas Spiel wird jetzt beendet, bis zum nächsten Mal!\n");
