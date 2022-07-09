@@ -296,7 +296,7 @@ public class VampireAdventureApp {
                     meetHuman();
                 }
                 if(Ereignis > 7 && Ereignis =< 9){
-
+                    //VH
                 }
                 if(Ereignis == 10){
                     Nothing();
@@ -318,7 +318,8 @@ public class VampireAdventureApp {
         } else{
             System.out.println("The Escape attempt failed. Get him!!");
         }
-
+        defend();
+        
         int ZufallDefend = random.nextInt(4) + 1;
         if(ZufallDefend == 1){
             System.out.println("Argh! The Human is defending himself desperately, he is trying to flee!");
