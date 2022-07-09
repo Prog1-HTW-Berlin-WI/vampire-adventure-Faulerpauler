@@ -5,11 +5,12 @@ import java.util.Scanner;
 
 import model.CreatorVampire;
 import model.Vampire;
+import model.VampireHunter;
 
 public class VampireAdventureApp {
     // Scanner
     private static Scanner scanner = new Scanner(System.in);
-    static Vampire[] vampires = new Vampire[10]; // Auf 10 Vampires begrenzt
+    static Vampire[] vampires = new Vampire[10]; // Auf 2 Vampires begrenzt
     static CreatorVampire[] creatorVampires = new CreatorVampire[1]; // Auf 1 Creator Vampire begrenzt
     static Vampire selectedVampire;
 
@@ -23,9 +24,8 @@ public class VampireAdventureApp {
 
         Vampire standardVampire1 = new Vampire("Bella", standardCreatorVampire);
         Vampire standardVampire2 = new Vampire("Jacob", standardCreatorVampire);
-        vampires[0] = standardCreatorVampire;
-        vampires[1] = standardVampire1;
-        vampires[2] = standardVampire2;
+        vampires[0] = standardVampire1;
+        vampires[1] = standardVampire2;
         selectedVampire = standardCreatorVampire;
 
         showMenu();
@@ -43,7 +43,7 @@ public class VampireAdventureApp {
         try {
             choiceInternal = scanner.nextInt();
         } catch (Exception e) {
-            // System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return choiceInternal;
@@ -65,7 +65,7 @@ public class VampireAdventureApp {
      * 
      * @param choice mainmenu
      */
-    private static void mainMenuChoice(int choice) {
+    private static void mainMenuChoise(int choice) {
         switch (choice) {
             case 1:
                 createVampireMenu();
@@ -86,7 +86,7 @@ public class VampireAdventureApp {
                 quit();
                 break;
             default: {
-                System.out.println("\nInvalid input. Please choose a correct number between 1 and 6");
+                System.out.println("Invalid input. Please choose a correct number between 1 and 6");
                 showMenu();
             }
                 break;
@@ -110,7 +110,7 @@ public class VampireAdventureApp {
         }
 
         int choice = intEingabe();
-        mainMenuChoice(choice);
+        mainMenuChoise(choice);
 
     }
 
@@ -175,15 +175,8 @@ public class VampireAdventureApp {
             for (int i = 0; i < creatorVampires.length; i++) {
                 if (creatorVampires[i] == null) {
                     creatorVampires[i] = newCreatorVampire;
-                    break;
                 }
-            }
 
-            for (int i = 0; i < vampires.length; i++) {
-                if (vampires[i] == null) {
-                    vampires[i] = newCreatorVampire;
-                    break;
-                }
             }
 
             System.out.println("Dein Creator Vampire wurde erstellt!");
@@ -202,22 +195,16 @@ public class VampireAdventureApp {
                 b = true;
             }
         }
-        if (creatorVampires[0] == null) {
-            System.out.println("You have to create a Creator Vampire first");
-            createVampireMenu();
-        }
-
         if (b == true) { // Array is not full
             System.out.println("Wie soll dein Vampir heißen?");
             String vampireName = stringEingabe();
             System.out.println(vampireName + "? Ein super Name!");
 
-            Vampire newVampire = new Vampire(vampireName, creatorVampires[0]);
+            Vampire newVampire = new Vampire(vampireName, null);
 
             for (int i = 0; i < vampires.length; i++) {
                 if (vampires[i] == null) {
                     vampires[i] = newVampire;
-                    break;
                 }
 
             }
@@ -230,56 +217,31 @@ public class VampireAdventureApp {
     }
 
     private static void showSelectedVampire() {
-
-        String vampireAttributes[] = { "\nVampire ID : <" + selectedVampire.getId() + ">",
-                "Name: <" + selectedVampire.getName() + ">",
-                "Is Creator: <" + Boolean.toString(selectedVampire instanceof CreatorVampire) + ">",
-                "Creator: <->",
-                "Energy: <" + Integer.toString(selectedVampire.getEnergy()) + ">",
-                "Grandness: <" + Integer.toString(selectedVampire.getGrandness()) + ">",
-                "Hunger: <" + Integer.toString(selectedVampire.getHunger()) + ">\n" };
-        if ((selectedVampire instanceof CreatorVampire) == false) {
-            vampireAttributes[3] = "Creator: <" + selectedVampire.getCreator().getName() + ">";
-        }
-        for (int i = 0; i < vampireAttributes.length; i++) {
-            System.out.println(vampireAttributes[i]);
-        }
-        while (true) {
-            System.out.println("Press <1> to go back to the main menu");
-            int choice = intEingabe();
-            if (choice == 1) {
-                showMenu();
-                break;
-            } else {
-                System.out.println("Invalid input. To go back to the main menu press <1>");
-            }
-        }
-
+        System.out.println(
+                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier kannst du dir alle Attribute deines ausgewählten Vampirs anzeigen lassen.\n");
+        showMenu();
     }
 
+    /**
+     * listAllVampires Menu
+     * 
+     */
     private static void listAllVampires() {
-        System.out.println("\nSelect a Vampire\n");
-        int x = 1;
-        for (int i = 0; i < vampires.length; i++) {
-            String isCreator = "";
-            if (vampires[i] instanceof CreatorVampire) {
-                isCreator = "<C>";
-            } else {
-                isCreator = "";
-            }
-            if (vampires[i] != null) {
-                System.out.println("(" + (x) + ") <" + vampires[i].getName() + "> Energy: <"
-                        + vampires[i].getEnergy() + "> " + isCreator);
-                x++;
-            }
 
+        String listAllVampiresMenu[] = { "",
+                "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" + creatorVampires[0].getEnergy() + "> ",
+                "(1)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy() + "> ",
+                "(1)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy() + "> ",
+                "(4)\tZurück zum Hauptmenü" };
+
+        System.out.println("\nSelect a Vampire\n");
+
+        for (int i = 1; i < listAllVampiresMenu.length; i++) {
+            System.out.println(listAllVampiresMenu[i]);
         }
-        System.out.println("(" + (x) + ") Zurück zum Hauptmenü");
         int choice = intEingabe();
-        if (choice == x) {
-            showMenu();
-        }
         listAllVampiresChoice(choice);
+
     }
 
     /**
@@ -290,56 +252,23 @@ public class VampireAdventureApp {
     private static void listAllVampiresChoice(int choice) {
         switch (choice) {
             case 1:
+                selectedVampire = creatorVampires[0];
+                System.out.println("\tYou selected the Vampire <" + creatorVampires[0].getName() + ">");
+                listAllVampires();
+                break;
+            case 2:
                 selectedVampire = vampires[0];
                 System.out.println("\tYou selected the Vampire <" + vampires[0].getName() + ">");
                 listAllVampires();
                 break;
-            case 2:
+            case 3:
                 selectedVampire = vampires[1];
                 System.out.println("\tYou selected the Vampire <" + vampires[1].getName() + ">");
                 listAllVampires();
                 break;
-            case 3:
-                selectedVampire = vampires[2];
-                System.out.println("\tYou selected the Vampire <" + vampires[2].getName() + ">");
-                listAllVampires();
-                break;
             case 4:
-                selectedVampire = vampires[3];
-                System.out.println("\tYou selected the Vampire <" + vampires[3].getName() + ">");
-                listAllVampires();
+                showMenu();
                 break;
-            case 5:
-                selectedVampire = vampires[4];
-                System.out.println("\tYou selected the Vampire <" + vampires[4].getName() + ">");
-                listAllVampires();
-                break;
-            case 6:
-                selectedVampire = vampires[5];
-                System.out.println("\tYou selected the Vampire <" + vampires[5].getName() + ">");
-                listAllVampires();
-                break;
-            case 7:
-                selectedVampire = vampires[6];
-                System.out.println("\tYou selected the Vampire <" + vampires[6].getName() + ">");
-                listAllVampires();
-                break;
-            case 8:
-                selectedVampire = vampires[7];
-                System.out.println("\tYou selected the Vampire <" + vampires[7].getName() + ">");
-                listAllVampires();
-                break;
-            case 9:
-                selectedVampire = vampires[8];
-                System.out.println("\tYou selected the Vampire <" + vampires[8].getName() + ">");
-                listAllVampires();
-                break;
-            case 10:
-                selectedVampire = vampires[9];
-                System.out.println("\tYou selected the Vampire <" + vampires[9].getName() + ">");
-                listAllVampires();
-                break;
-
             default: {
                 System.out.println("Invalid input. Please choose a correct number between 1 and 4");
                 listAllVampires();
@@ -348,114 +277,10 @@ public class VampireAdventureApp {
         }
     }
 
-    /**
-     * delete Vampire Menu
-     * 
-     */
-    /*
-     * private static void deleteVampire() {
-     * String deleteVampireMenu[] = {
-     * "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" +
-     * creatorVampires[0].getEnergy() + "> ",
-     * "(2)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy()
-     * + "> ",
-     * "(3)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy()
-     * + "> ",
-     * "(4)\tZurück zum Hauptmenü" };
-     * 
-     * System.out.println("\nSelect a Vampire to delete\n");
-     * 
-     * for (int i = 0; i < deleteVampireMenu.length; i++) {
-     * 
-     * System.out.println(deleteVampireMenu[i]);
-     * }
-     * int choice = intEingabe();
-     * 
-     * deleteVampireChoice(choice);
-     * }
-     */
-
     private static void deleteVampire() {
-        System.out.println("\nSelect a Vampire to delete\n");
-        int x = 1;
-        for (int i = 0; i < vampires.length; i++) {
-            if (vampires[i] != null) {
-                System.out.println("(" + (x) + ")\t<" + vampires[i].getName() + ">\t Energy: <"
-                        + vampires[i].getEnergy() + "> ");
-                x++;
-            }
-
-        }
-        System.out.println("(" + (x) + ")\t Zurück zum Hauptmenü");
-        int choice = intEingabe();
-        if (choice == x) {
-            showMenu();
-        }
-        deleteVampireChoice(choice);
-    }
-
-    /**
-     * delete Vampires choices
-     * 
-     * @param choice
-     */
-    private static void deleteVampireChoice(int choice) {
-        switch (choice) {
-            case 1:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 2:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 3:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 4:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 5:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 6:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 7:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 8:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 9:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            case 10:
-                deleteChosenVampire(choice);
-                deleteVampire();
-                break;
-            default: {
-                System.out.println("Invalid input. Please choose a valid number");
-                deleteVampire();
-                break;
-            }
-        }
-    }
-
-    private static void deleteChosenVampire(int choice) {
-        System.out.println("\tThe Vampire <" + vampires[choice - 1].getName() + "> has been deleted.");
-
-        if (vampires[choice - 1] instanceof CreatorVampire) {
-            creatorVampires[0] = null;
-        }
-        vampires[choice - 1] = null;
+        System.out.println(
+                "\nLeider hat die Methode noch keinen Code. Aber Du kannst hoffentlich nachvollziehen wie der Ablauf ist. Hier kannst du Vampire löschen.\n");
+        showMenu();
     }
 
     private static void startNightlyAdventure() {
@@ -484,27 +309,93 @@ public class VampireAdventureApp {
 //Print Counter and a  hint 
 
     private static void meetHuman(){
-        System.out.println("A Human! Get him!");
         Random random;
-        int ZufallHuman = random.nextInt(10) + 1;
-        
-    }
+        System.out.println("Fresh Blood! Get him!");
+        int ZufallHuman = random.nextInt(5) + 1;
+        if(ZufallHuman == 1 ){
+            System.out.println("The Human managed to flee, your ravenous hunger is torturing you. You better get him next time!");
+            // END ROUND
+        } else{
+            System.out.println("The Escape attempt failed. Get him!!");
+        }
 
-    public static void VampireHunter(){
+        int ZufallDefend = random.nextInt(4) + 1;
+        if(ZufallDefend == 1){
+            System.out.println("Argh! The Human is defending himself desperately, he is trying to flee!");
+            meetHuman();
+        } 
+
+        int ZufallAttack = random.nextInt(10) + 1;
+        System.out.println("Resistance is useless, your time has come, Human!!");
+        if(ZufallAttack <= 7){
+            System.out.println("You knocked the Human unconscious. Fresh Blood, for all of us!!");
+            drinkBlood(); //undefined for VampireAdventure - Wie greifen wir Klassenübergreifend zu?
+            // ja wer und wie viel
+        } else{ 
+           System.out.println("You missed your attack. Get him before he flees!!"); 
+           meetHuman(); 
+        }
+}
+    public static void meetVampireHunter(){
         System.out.println("A Vampire Hunter has crossed your way. Your time has come...");
-
+         //OPTION TO CHOOSE {1}, {2}, {3}, {4}
     }
+       
+        //1. SACRIFICE 
+        Random random;
+        void sacrifice(){
+            //DELETE SACRFICED VAMPIRE
+            int ZufallSacrifice = random.nextInt(1) + 1
+            if(ZufallSacrifice == 1){ 
+                System.out.println("The Sacrfice could satisfy the VampireHunter. The VampireHunter left")
+                //END ROUND
+            } else{
+                System.out.println("The VampireHunter is still on a rampage, watch out!!");
+                attackVampire();
+                //BACK TO OPTIONS
+            }
+        }
+        
+        //2. FLee
+        void flee(){
+            Random random;
+            int ZufallFlee = random.nextInt(10) + 1;
+            if(ZufallFlee <= 6){
+                System.out.println("Watch your steps, fortunately, this time we managed to escaped.");
+                //END ROUND
+            } else{
+
+            } 
+        }
+
+        //3. FIGHT
+        void fight(){
+            Random random;
+            int ZufallFight = random.nextInt(3) +1;
+            if(ZufallFight == 1){
+                System.out.println("You injured the VampireHunter. The VampireHunter has "+energy+" energy left.");
+                //ATTACK VAMPIRE 
+
+            }
+            if(ZufallFight == 2){
+                System.out.println("You just landed a critical hit. The VampireHunter has "+energy+" energy left.");
+                //ATTACK VAMPIRE 
+            }
+
+        }
+    
+        
 
     public static void Nothing(){
          System.out.println("hurry! Find fresh blood, before the sunrise will end your journey");
-         
+         // END ROUND
      }
 
     
 
     private static void quit() {
-        System.out.println("\nDas Spiel wird jetzt beendet, bis zum nächsten Mal!\n");
+        System.out.println("\nGAME OVER! See you next time.\n");
         System.exit(0);
     }
 
-}
+
