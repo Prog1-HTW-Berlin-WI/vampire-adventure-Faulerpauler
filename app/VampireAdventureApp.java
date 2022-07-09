@@ -459,62 +459,114 @@ public class VampireAdventureApp {
         vampires[choice - 1] = null;
     }
 
-    private static void startNightlyAdventure() {
-        System.out.println("Rise vampires, the sun has gone down and there is lots that needs to be done.")
-        System.out.println("“Time is running: Round 1”");
-        Random random;
+    private static void nextRound() {
+        while (true) {
+            System.out.println("Press <1> to start the next round!");
+            int choice = intEingabe();
+            if (choice == 1) {
+                break;
+            } else {
+                System.out.println("Invalid input. To start the next round press <1>!");
+            }
+        }
+    }
 
-        int counter = 0;
-            while (counter <= 15){
-                counter++;
-                int Ereignis = random.nextInt(10) + 1;
-                if(Ereignis <= 7){
-                    meetHuman();
-                }
-                if(Ereignis > 7 && Ereignis =< 9){
-                    //VH
-                }
-                if(Ereignis == 10){
-                    Nothing();
-                    continue; 
-                }
-                
+    private static void startNightlyAdventure() {
+        int counter = 1;
+        System.out.println("Rise vampires, the sun has gone down and there is lots that needs to be done.");
+
+        Random random = new Random();
+
+        while (counter <= 15) {
+            System.out.println("Time is running: Round " + counter + ".");
+            int Ereignis = random.nextInt(10) + 1;
+
+            if (Ereignis <= 7) {// Human
+                meetHuman();
             }
-                
+            if (Ereignis > 7 && Ereignis <= 9) { // Vampire Hunter
+                meetVampireHunter();
+
+            } else { // Nothing
+                System.out.println("hurry! Find fresh blood, before the sunrise will end your journey");
+                nextRound();
             }
+            counter++;
+
+        }
+
+    }
     // Print Counter and a hint
 
     private static void meetHuman() {
-        Human Bob = new Human(getRandomBlood());
-        System.out.println("A Human! Get him!");
-        Random random;
-        System.out.println("Fresh Blood! Get him!");
+        Human bob = new Human(getRandomBlood());
+        Random random = new Random();
         int ZufallHuman = random.nextInt(5) + 1;
-        if (ZufallHuman == 1) {
-            System.out.println(
-                    "The Human managed to flee, your ravenous hunger is torturing you. You better get him next time!");
-            // END ROUND
-        } else {
-            System.out.println("The Escape attempt failed. Get him!!");
-        }
-        defend();
 
-        int ZufallDefend = random.nextInt(4) + 1;
-        if (ZufallDefend == 1) {
-            System.out.println("Argh! The Human is defending himself desperately, he is trying to flee!");
-            meetHuman();
+        System.out.println("A Human! Get him!");
+        System.out.println("Fresh Blood! Get him!");
+
+        while (true) {
+            if (ZufallHuman == 1) {// 20% Human flees
+                System.out.println(
+                        "The Human managed to flee, your hunger is torturing you. You better get him next time!");
+                nextRound();
+                return;
+            } else {
+                System.out.println("The Escape attempt failed. Get him!!");
+            }
+
+            Vampire attackingVampire = chooseVampire();
+
+            if (bob.defend() == true) {// hat sich verteidigt
+                nextRound();
+                return;
+            } else { // konnte sich nicht verteidigen
+                if (attackingVampire.attackHuman(bob) == true) {
+                    System.out.println("Do you want to suck blood?\n <1>\t Yes\n<2>\t No");
+                    int choice = intEingabe();
+                    if (choice == 1) {
+                        System.out.println("The human has " + bob.getAmountOfBlood()
+                                + " liters of blood.\nHow much do you want to drink?");
+                        int drinkChoice = intEingabe();
+                        attackingVampire.drinkBlood(drinkChoice, bob);
+                        bob.turnintoVampire();
+                    } else {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
         }
 
-        int ZufallAttack = random.nextInt(10) + 1;
-        System.out.println("Resistance is useless, your time has come, Human!!");
-        if (ZufallAttack <= 7) {
-            System.out.println("You knocked the Human unconscious. Fresh Blood, for all of us!!");
-            drinkBlood(); // undefined for VampireAdventure - Wie greifen wir Klassenübergreifend zu?
-            // ja wer und wie viel
-        } else {
-            System.out.println("You missed your attack. Get him before he flees!!");
-            meetHuman();
+    }
+
+    private static Vampire chooseVampire() {
+        System.out.println("\nSelect a Vampire to attack with\n");
+        int x = 1;
+        for (int i = 0; i < vampires.length; i++) {
+            String isCreator = "";
+            if (vampires[i] instanceof CreatorVampire) {
+                isCreator = "<C>";
+            } else {
+                isCreator = "";
+            }
+            if (vampires[i] != null) {
+                System.out.println("(" + (x) + ") <" + vampires[i].getName() + "> Hunger: <"
+                        + vampires[i].getHunger() + "> " + isCreator);
+                x++;
+            }
+
         }
+        int choice = intEingabe();
+        Vampire attackingVampire = vampires[choice];
+        return attackingVampire;
+    }
+
+    public static int getRandomBlood() {
+        Random r = new Random();
+        return r.nextInt(3) + 6;
     }
 
     public static void meetVampireHunter() {
@@ -525,17 +577,17 @@ public class VampireAdventureApp {
     // 1. SACRIFICE
     Random random;
 
-    void sacrifice(){
-            //DELETE SACRFICED VAMPIRE
-            int ZufallSacrifice = random.nextInt(1) + 1
-            if(ZufallSacrifice == 1){ 
-                System.out.println("The Sacrfice could satisfy the VampireHunter. The VampireHunter left")
-                //END ROUND
-            } else{
-                System.out.println("The VampireHunter is still on a rampage, watch out!!");
-                attackVampire();
-                //BACK TO OPTIONS
-            }
+    void sacrifice() {
+        // DELETE SACRFICED VAMPIRE
+        int ZufallSacrifice = random.nextInt(1) + 1;
+        if (ZufallSacrifice == 1) {
+            System.out.println("The Sacrfice could satisfy the VampireHunter. The VampireHunter left");
+            // END ROUND
+        } else {
+            System.out.println("The VampireHunter is still on a rampage, watch out!!");
+            attackVampire();
+            // BACK TO OPTIONS
+        }
     }
 
     // 2. FLee
@@ -566,18 +618,8 @@ public class VampireAdventureApp {
 
     }
 
-    public static void Nothing() {
-        System.out.println("hurry! Find fresh blood, before the sunrise will end your journey");
-        // END ROUND
-    }
-
     private static void quit() {
         System.out.println("\nGAME OVER! See you next time.\n");
         System.exit(0);
     }
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> a1cabcb53293165a67c967aca12094a39daf8b1a
+}

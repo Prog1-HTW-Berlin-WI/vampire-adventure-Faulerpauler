@@ -27,30 +27,28 @@ public class Vampire {
     }
 
     // Die Zufallsvariable muss in jede Methode gleich übernommen werden - bspw.
-    public void attackHuman(Human human) {
+    public boolean attackHuman(Human human) {
+        System.out.println("Resistance is useless, your time has come, Human!!");
         int zufallsergebnis = random.nextInt(10) + 1;
         if (zufallsergebnis <= 6) {
-            drinkBlood();
-            // User Input -> "Du hast den Menschen ruhig gestellt. Möchtest du Blut saugen?" -> "Ja" oder "Nein"
-        }
-        if (zufallsergebnis > 6) {
-            System.out.println("Du hast es nicht .");
+            System.out.println("You knocked the Human unconscious. Fresh Blood, for all of us!!");
+            return true;
+            // User Input -> "Du hast den Menschen ruhig gestellt. Möchtest du Blut saugen?"
+            // -> "Ja" oder "Nein"
+        } else {
+            System.out.println("He dodged your attack!");
+            return false;
         }
     }
 
     // Hier KANN der Spielr entscheiden, ob sein Vampir Blut trinken soll oder nicht
-    public void drinkBlood() {
-        int amount = random.nextInt(10) + 1;
-        if (amount <= 6) {
-            // wie viel kann er denn trinken? (Input möglichkeit?)
-        } else{
-            
-        }
-
+    public void drinkBlood(int amount, Human human) {
+        human.setAmountOfBlood(human.getAmountOfBlood() - amount);
+        this.hunger = this.hunger - amount;
     }
 
     public boolean isDrinkingBlood() {
-        //IF ja dann true setzen 
+        // IF ja dann true setzen
         return isDrinkingBlood;
     }
 
