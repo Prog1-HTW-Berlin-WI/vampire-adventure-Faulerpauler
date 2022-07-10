@@ -3,6 +3,9 @@ package model;
 import java.util.UUID;
 import java.util.Random;
 
+/** 
+ * Class VampireHunter mit Attributen erstellen 
+ */
 public class VampireHunter {
 
     private String id = UUID.randomUUID().toString();
@@ -13,6 +16,21 @@ public class VampireHunter {
     private boolean alive = true;
     public Random random;
 
+      /**
+       * VampireHunter Konstruktor 
+       * @param name
+       */
+
+      public VampireHunter(String name) {
+        this.name = name;
+
+    }
+    /**
+     * attack-Vampire-Methode
+     * Der VampireHunter greift den Vampir an und trifft zu 50%.
+     * Wenn er getroffen hat, dann erleidet der Vampir 3 Schadenspunkte.
+     * @param vampire
+     */
     public void attackVampire(Vampire vampire) {
         System.out.println("The VampireHunter is Attacking your Creator");
         int Treffer = random.nextInt(2);
@@ -28,14 +46,27 @@ public class VampireHunter {
         }
     }
 
+    /**
+     * takeDamage-Methode
+     * Der VampireHunter erleidet Schaden in Höhe der Schadenspunkte, die 
+     * der Vampir verursacht hat
+     * @param amount
+     */
     public void takeDamage(int amount) {
         this.setEnergy(this.getEnergy() - amount);
     }
-
+    /**
+     * flee-Methode
+     * Ein VampireHunter flieht nie 
+     */
     public void flee() {
         System.out.println("I'd rather die then flee...");
     }
 
+    /** 
+     * alive-Methode
+     * Zeigt an, ob der VamoireHunter noch lebt oder gestorben ist
+     */ 
     public void alive() {
         if (energy <= 0) {
             System.out.println("The VampireHunter Died. Victory!");
@@ -45,13 +76,10 @@ public class VampireHunter {
 
     }
 
-    // Konstruktor
-    public VampireHunter(String name) {
-        this.name = name;
-
-    }
-
-    // Getter & Setter
+    /**
+     * Getter- und SetterM-Methoden der Attribute der Unterklasse VampireHunter
+     * @return
+     */
     public String getId() {
         return id;
     }
