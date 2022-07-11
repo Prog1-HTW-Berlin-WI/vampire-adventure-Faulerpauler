@@ -8,6 +8,10 @@ import model.Human;
 import model.Vampire;
 import model.VampireHunter;
 
+/**
+ * Klasse mit allen Methoden für die Vampire Adventure App
+ * 
+ */
 public class VampireAdventureApp {
     // Scanner
     private static Scanner scanner = new Scanner(System.in);
@@ -16,7 +20,12 @@ public class VampireAdventureApp {
     static Vampire selectedVampire;
 
     /**
-     * @param args mainklasse
+     * Methode: main
+     * Beschreibung: Erstellt Standard Vampire und Vampire Array und legt den
+     * Selected Vampire fest. Das Menü von dem die weiteren Aktion ausgewählt werden
+     * können wird aufgerufen.
+     * 
+     * @param args (String[])
      */
     public static void main(String[] args) {
         // Bei Start des Spiels Vampire erstellen
@@ -35,9 +44,11 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Read User Input
+     * Methode: intEingabe
+     * Beschreibung: Ließt die Nutzereingabe für Intergers und gibt diese für die
+     * weitere Verwendung zurück
      * 
-     * @return
+     * @return choiceInternal (int) Nutzereingabe
      */
     private static int intEingabe() {
         System.out.print("\nPlease choose one of the options:");
@@ -51,6 +62,13 @@ public class VampireAdventureApp {
         return choiceInternal;
     }
 
+    /**
+     * Methode: stringEingabe
+     * Beschreibung: Ließt die Nutzereingabe für Strings und gibt diese für die
+     * weitere Verwendung zurück
+     * 
+     * @return choiceInternal (String) Nutzereingabe
+     */
     private static String stringEingabe() {
         String choiceInternal = "";
         try {
@@ -63,9 +81,35 @@ public class VampireAdventureApp {
     }
 
     /**
+     * Methode: showMenu
+     * Beschreibung: Zeigt das Nutzerinterface des Hauptmenü an und ruft die
+     * Methoden intEingabe() und
+     * mainMenuChoice() für die Verarbeitung der Nutzereingaben auf.
+     */
+    private static void showMenu() {
+
+        String menuItems[] = { "", "(1)\t Create Vampire", "(2)\t Show Selected Vampire", "(3)\t List all Vampires",
+                "(4)\t Delete Vampire", "(5)\t Start Nightly Adventure", "(6)\t Quit" };
+
+        System.out.println("\nVampire Adventures 1.0\n");
+        System.out.println("Selected Vampire: <" + selectedVampire.getName() + ">\n");
+
+        for (int i = 1; i < menuItems.length; i++) {
+            System.out.println(menuItems[i]);
+        }
+
+        int choice = intEingabe();
+        mainMenuChoice(choice);
+
+    }
+
+    /**
+     * Methode: mainMenuChoice
+     * Beschreibung: Verarbeitet die Menüeingabe und ruft die ausgewählte Aktion
+     * auf.
      * 
+     * @param choice (int)
      * 
-     * @param choice mainmenu
      */
     private static void mainMenuChoice(int choice) {
         switch (choice) {
@@ -97,27 +141,10 @@ public class VampireAdventureApp {
     }
 
     /**
-     * Main Menu
-     */
-    private static void showMenu() {
-
-        String menuItems[] = { "", "(1)\t Create Vampire", "(2)\t Show Selected Vampire", "(3)\t List all Vampires",
-                "(4)\t Delete Vampire", "(5)\t Start Nightly Adventure", "(6)\t Quit" };
-
-        System.out.println("\nVampire Adventures 1.0\n");
-        System.out.println("Selected Vampire: <" + selectedVampire.getName() + ">\n");
-
-        for (int i = 1; i < menuItems.length; i++) {
-            System.out.println(menuItems[i]);
-        }
-
-        int choice = intEingabe();
-        mainMenuChoice(choice);
-
-    }
-
-    /**
-     * createVampire Menu
+     * Methode: createVampireMenu
+     * Beschreibung: Zeigt das Nutzerinterface zum Erstellen von Vampiren an und
+     * ruft die Methoden intEingabe() und createVampireChoice() für die Verarbeitung
+     * der Nutzereingaben auf.
      * 
      */
     private static void createVampireMenu() {
@@ -136,9 +163,11 @@ public class VampireAdventureApp {
     }
 
     /**
-     * createVampire choices
+     * Methode: createVampireChoices
+     * Beschreibung: Verarbeitet die Nutzereingabe und ruft die ausgewählte Aktion
+     * auf.
      * 
-     * @param choice
+     * @param choice (int) Nutzereingabe
      */
     private static void createVampireChoice(int choice) {
         switch (choice) {
@@ -159,7 +188,11 @@ public class VampireAdventureApp {
         }
     }
 
-    // Create Creator Vampire
+    /**
+     * Methode: createCreatorVampire
+     * Beschreibung: Kontrolliert ob ein Creator Vampir erstellt werden kann,
+     * erstellt diesen wenn möglich und fügt ihn zum Vampire Array hinzu.
+     */
     private static void createCreatorVampire() {
         boolean b = false;
         for (int i = 0; i < creatorVampires.length; i++) { // Check if Creator Vampires Array is full
@@ -196,7 +229,11 @@ public class VampireAdventureApp {
 
     }
 
-    // Create Vampire
+    /**
+     * Methode: createVampire
+     * Beschreibung: Kontrolliert ob ein weiterer Vampir erstellt werden kann,
+     * erstellt diesen wenn möglich und fügt ihn zum Vampire Array hinzu.
+     */
     private static void createVampire() {
         boolean b = false;
         for (int i = 0; i < vampires.length; i++) { // Check if Vampires Array is full
@@ -231,6 +268,11 @@ public class VampireAdventureApp {
 
     }
 
+    /**
+     * Methode: showSlectedVampire
+     * Beschreibung: Zeigt alle Attribute des Selected Vampires aus.
+     *
+     */
     private static void showSelectedVampire() {
 
         String vampireAttributes[] = { "\nVampire ID : <" + selectedVampire.getId() + ">",
@@ -259,6 +301,11 @@ public class VampireAdventureApp {
 
     }
 
+    /**
+     * Methode: listAllVampires
+     * Beschreibung: Zeigt eine Liste aller Vampire an aus welcher der Nutzer einen
+     * Vampir auswählen kann um ihn zum selected Vampire zu machen.
+     */
     private static void listAllVampires() {
         System.out.println("\nSelect a Vampire\n");
         int x = 1;
@@ -285,9 +332,11 @@ public class VampireAdventureApp {
     }
 
     /**
-     * list all Vampires choices
+     * Methode: listAllVampiresChoice
+     * Beschreibung: Verarbeitet die Menüeingabe und ruft die ausgewählte Aktion
+     * auf.
      * 
-     * @param choice
+     * @param choice (int) Nutzereingabe
      */
     private static void listAllVampiresChoice(int choice) {
         switch (choice) {
@@ -351,32 +400,10 @@ public class VampireAdventureApp {
     }
 
     /**
-     * delete Vampire Menu
-     * 
+     * Methode: deleteVampire
+     * Beschreibung: Zeigt eine Liste aller Vampire an aus welcher der Nutzer einen
+     * auswählen kann um diesen zu löschen.
      */
-    /*
-     * private static void deleteVampire() {
-     * String deleteVampireMenu[] = {
-     * "(1)\t<" + creatorVampires[0].getName() + ">\t Energy: <" +
-     * creatorVampires[0].getEnergy() + "> ",
-     * "(2)\t<" + vampires[0].getName() + ">\t Energy: <" + vampires[0].getEnergy()
-     * + "> ",
-     * "(3)\t<" + vampires[1].getName() + ">\t Energy: <" + vampires[1].getEnergy()
-     * + "> ",
-     * "(4)\tZurück zum Hauptmenü" };
-     * 
-     * System.out.println("\nSelect a Vampire to delete\n");
-     * 
-     * for (int i = 0; i < deleteVampireMenu.length; i++) {
-     * 
-     * System.out.println(deleteVampireMenu[i]);
-     * }
-     * int choice = intEingabe();
-     * 
-     * deleteVampireChoice(choice);
-     * }
-     */
-
     private static void deleteVampire() {
         System.out.println("\nSelect a Vampire to delete\n");
         int x = 1;
@@ -397,9 +424,11 @@ public class VampireAdventureApp {
     }
 
     /**
-     * delete Vampires choices
+     * Methode: deleteVampireChoice
+     * Beschreibung: Verarbeitet die Menüeingabe und ruft die ausgewählte Aktion
+     * auf.
      * 
-     * @param choice
+     * @param choice (int) Nutzereingabe
      */
     private static void deleteVampireChoice(int choice) {
         switch (choice) {
@@ -451,6 +480,12 @@ public class VampireAdventureApp {
         }
     }
 
+    /**
+     * Methode: deleteChosenVampire
+     * Beschreibung: Löscht den ausgewählten Vampir aus dem Vampire Array
+     * 
+     * @param choice (int) Nutzereingabe
+     */
     private static void deleteChosenVampire(int choice) {
         System.out.println("\tThe Vampire <" + vampires[choice - 1].getName() + "> has been deleted.");
 
@@ -460,6 +495,10 @@ public class VampireAdventureApp {
         vampires[choice - 1] = null;
     }
 
+    /**
+     * Methode nextRound
+     * Beschreibung: Wartet auf eine Nutzereingabe um die nächste Runde zu starten.
+     */
     private static void nextRound() {
         while (true) {
             System.out.println("Press <1> to start the next round!");
@@ -472,6 +511,12 @@ public class VampireAdventureApp {
         }
     }
 
+    /**
+     * Methode: startNightlyAdventure
+     * Beschreibung: Startet ein Spiel welches 15 Runden geht und entscheidet
+     * welches Ereignis eintreten soll.
+     * 
+     */
     private static void startNightlyAdventure() {
         int counter = 1;
         System.out.println("Rise vampires, the sun has gone down and there is lots that needs to be done.");
@@ -499,8 +544,17 @@ public class VampireAdventureApp {
         }
 
     }
-    // Print Counter and a hint
 
+    // Print Counter and a hint
+    /**
+     * Methode: meetHuman
+     * Beschreibung: Ein neues Objekt von der Klasse Human wird erstellt. Es wird
+     * entschieden ob dieser fliehen kann oder nicht. Wenn nicht kann vom Nutzer
+     * entscheieden werden kann ein Vampir ausgewählt werden mit welchem der Human
+     * angegriffen werden soll. Nachdem der Human erfolgreich stillgelegt wurde kann
+     * der Vampir blut trinken und den Human gegebenenfalls un einen Vampir
+     * umwandeln.
+     */
     private static void meetHuman() {
         Human bob = new Human(getRandomBlood());
         Random random = new Random();
@@ -553,6 +607,14 @@ public class VampireAdventureApp {
 
     }
 
+    /**
+     * Methode: chooseVampire
+     * Beschreibung: Es kann ein Vampir für eie bestimmte Aktion ausgewählt werden.
+     * Der Ausgewählte Vampir wird von der Methode zurückgegeben.
+     * 
+     * @param action (String) Die Aktion für welche der Vampir ausgewählt wird
+     * @return attackingVampire (Vampire) Der ausgewählte Vampir
+     */
     private static Vampire chooseVampire(String action) {
         System.out.println("\nSelect a Vampire to " + action + "\n");
         int x = 1;
@@ -575,11 +637,23 @@ public class VampireAdventureApp {
         return attackingVampire;
     }
 
+    /**
+     * Methode: getRandomBlood
+     * Beschreibung: Gibt eine zufällige Menge an Blut aus
+     * 
+     * @return r (int) Zufällige Zahl zwischen 6 und 8
+     */
     public static int getRandomBlood() {
         Random r = new Random();
         return r.nextInt(3) + 6;
     }
 
+    /**
+     * Methode: meetVampireHunter
+     * Beschreibung: Erstellt ein Objekt von der Klasse VampireHunter und gibt dem
+     * Nutzer 4 mögliche Aktionen zur Auswahl. Je nach Nutzereingabe wird auf die
+     * dementsprechende Methode weitergeleitet.
+     */
     public static void meetVampireHunter() {
         VampireHunter blade = new VampireHunter("Blade");
         System.out.println("A Vampire Hunter has crossed your way. Your time has come...");
@@ -611,8 +685,13 @@ public class VampireAdventureApp {
         }
     }
 
-    // 1. SACRIFICE
-
+    /**
+     * Methode: sacrifice
+     * Beschreibung: Ein Vampir wird geopfert um den VampireHunter mit 50%iger
+     * Wahrscheinlichkeit loszuwerden.
+     * 
+     * @param name (VampireHunter) Der angreifende Vampire Hunter
+     */
     public static void sacrifice(VampireHunter name) {
         Vampire creator = vampires[0];
         for (int i = 0; i < vampires.length; i++) {
@@ -646,7 +725,13 @@ public class VampireAdventureApp {
         }
     }
 
-    // 2. FLee
+    /**
+     * Methode: flee
+     * Beschreibung: Ein Fluchtversuch wird gestartet. Wenn dieser fehlschlägt fügt
+     * der Vampire Hunter dem Creator Vampire Schaden hinzu.
+     * 
+     * @param name (VampireHunter) Der angreifende Vampire Hunter
+     */
     public static void flee(VampireHunter name) {
         Vampire creator = vampires[0];
         for (int i = 0; i < vampires.length; i++) {
@@ -668,7 +753,13 @@ public class VampireAdventureApp {
         }
     }
 
-    // 3. FIGHT
+    /**
+     * Methode: fight
+     * Beschreibung: Der Nutzer kann einen Vampir auswählen mit dem der Vampire
+     * Hunter angegriffen werden soll. der Schaden wird zufällig ausgewählt.
+     * 
+     * @param name (VampireHunter) Der angreifende Vampire Hunter
+     */
     public static void fight(VampireHunter name) {
         Vampire creator = vampires[0];
         for (int i = 0; i < vampires.length; i++) {
@@ -697,6 +788,11 @@ public class VampireAdventureApp {
         return;
     }
 
+    /**
+     * Methode: callItANight
+     * Beschreibung: Die Runde wird beendet und der Nutzer wird zurück ins Hauptmenü
+     * geleitet.
+     */
     public static void callItANight() {
         System.out.println("You chickened out! The night is over now!");
         while (true) {
@@ -710,6 +806,10 @@ public class VampireAdventureApp {
         }
     }
 
+    /**
+     * Methode: quit
+     * Beschreibung: Das Spiel wird beendet.
+     */
     private static void quit() {
         System.out.println("\nGAME OVER! See you next time.\n");
         System.exit(0);

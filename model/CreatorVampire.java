@@ -4,13 +4,21 @@ public class CreatorVampire extends Vampire {
     // Attribute
     private Vampire[] descendants;
 
-    // Konstruktor
+    /**
+     * Methode: CreatorVampire
+     * Beschreibung: Ein neuer Creator Vampire wird erstellt.
+     * 
+     * @param name (String) Name des Creator Vampires
+     */
     public CreatorVampire(String name) {
         super();
         this.name = name;
     }
 
-    // Operationen
+    /**
+     * Methode: listAllDescendants
+     * Beschreibung: Alle Nachfahren des Creator Vampires werden ausgegeben.
+     */
     public void listAllDescendants() {
         for (int i = 0; i < descendants.length; i++) {
             System.out.println(descendants[i]);
